@@ -1,3 +1,6 @@
 [submodule "movie-rental-refactor"]
 	path = movie-rental-refactor
 	url = https://github.com/osinagalj/java-proyects/movie-rental-refactor
+[submodule "streams-kata"]
+	path = streams-kata
+	url = https://github.com/osinagalj/java-proyects/streams-kata
