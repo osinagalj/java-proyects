@@ -1,0 +1,3 @@
+[submodule "movie-rental-refactor"]
+	path = movie-rental-refactor
+	url = https://github.com/osinagalj/java-proyects/movie-rental-refactor
