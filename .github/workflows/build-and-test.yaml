@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build Java projects and run tests
+    name: Compile and Run Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -25,7 +25,8 @@ jobs:
         run: mvn -f morse-code/pom.xml clean verify
 
       - name: Build and test project-b
-        run: mvn -f movie-rental.refactor/pom.xml clean verify
+        run: mvn -f movie-rental-refactor/pom.xml clean verify
 
       - name: Build and test project-c
         run: mvn -f streams-kata/pom.xml clean verify
+
