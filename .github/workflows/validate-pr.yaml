@@ -1,0 +1,21 @@
+name: Validate PR
+
+on:
+  pull_request:
+    types: [opened, edited, labeled, synchronize, reopened, unlabeled]
+
+jobs:
+  validate_pr:
+    name: Validate PR
+    runs-on: [eg-default]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Validate Pull Request
+        uses: validate-pull-request@main
+        with:
+          TASK_LIST_COUNT: 6
+          VALIDATE_TITLE: true
