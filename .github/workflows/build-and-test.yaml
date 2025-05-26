@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build Java projects and run tests
+    name: Compile and Run Tests
     runs-on: ubuntu-latest
 
     steps:
