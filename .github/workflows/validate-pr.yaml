@@ -1,21 +1,48 @@
-name: Validate PR
+name: Validate PR Template from .md
 
 on:
   pull_request:
-    types: [opened, edited, labeled, synchronize, reopened, unlabeled]
+    types: [opened, edited, synchronize, reopened]
 
 jobs:
   validate_pr:
-    name: Validate PR
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
 
-      - name: Validate Pull Request
-        uses: .github/pull_request_template.md@main
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Validate PR body against template file
+        uses: actions/github-script@v7
         with:
-          TASK_LIST_COUNT: 6
-          VALIDATE_TITLE: true
+          script: |
+            const fs = require('fs');
+            const path = '.github/pull_request_template.md';
+
+            if (!fs.existsSync(path)) {
+              core.setFailed(`El archivo ${path} no existe en el repo.`);
+              return;
+            }
+
+            const template = fs.readFileSync(path, 'utf8');
+            const prBody = context.payload.pull_request.body || '';
+
+            // Validar que cada sección del template esté en el cuerpo del PR
+            // Aquí puedes definir tu lógica. Ejemplo: verificar que los títulos principales existan
+
+            const sections = template.match(/^### .+$/gm) || [];
+
+            const missingSections = sections.filter(section => !prBody.includes(section));
+
+            if (missingSections.length > 0) {
+              core.setFailed(`Faltan estas secciones en el PR: ${missingSections.join(', ')}`);
+              return;
+            }
+
+            // Validar checklist mínimo (ejemplo: 6 checkboxes marcadas)
+            const checklistCount = (prBody.match(/\[ ?[xX] ?\]/g) || []).length;
+            if (checklistCount < 6) {
+              core.setFailed(`Debes marcar al menos 6 items en la checklist. Encontrados: ${checklistCount}`);
+              return;
+            }
+
+            core.info('Validación del PR contra el template exitosa.');
