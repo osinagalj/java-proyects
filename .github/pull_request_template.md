@@ -1,5 +1,3 @@
-[![Pipeline](https://github.expedia.biz/Expedia-Partner-Solutions/taap-api-core/actions/workflows/pipeline-status.yaml/badge.svg)](https://github.expedia.biz/Expedia-Partner-Solutions/taap-api-core/actions/workflows/pipeline-status.yaml)
-
 <!--
 Thank you for submitting a pull request! Please complete the following sections and ensure that you have completed all of the relevant checklist items below.
 -->
@@ -19,3 +17,5 @@ Thank you for submitting a pull request! Please complete the following sections 
 - [ ] I have performed local testing.
 - [ ] This change is ready for QA.
 - [ ] I commit to properly monitor these changes during deployment.
+- [ ] Test.
+
