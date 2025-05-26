@@ -26,9 +26,6 @@ jobs:
             const template = fs.readFileSync(path, 'utf8');
             const prBody = context.payload.pull_request.body || '';
 
-            // Validar que cada sección del template esté en el cuerpo del PR
-            // Aquí puedes definir tu lógica. Ejemplo: verificar que los títulos principales existan
-
             const sections = template.match(/^### .+$/gm) || [];
 
             const missingSections = sections.filter(section => !prBody.includes(section));
@@ -38,7 +35,6 @@ jobs:
               return;
             }
 
-            // Validar checklist mínimo (ejemplo: 6 checkboxes marcadas)
             const checklistCount = (prBody.match(/\[ ?[xX] ?\]/g) || []).length;
             if (checklistCount < 6) {
               core.setFailed(`Debes marcar al menos 6 items en la checklist. Encontrados: ${checklistCount}`);
